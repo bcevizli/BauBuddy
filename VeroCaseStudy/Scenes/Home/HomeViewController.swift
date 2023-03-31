@@ -6,17 +6,37 @@
 //
 
 import UIKit
+import Alamofire
 
 class HomeViewController: UIViewController {
 
     let tableView = UITableView()
     
-    var tasksArray: [Items] = []
+    var tasksArray = [Items]()
+    
+    var viewModel: HomeViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .systemBackground
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(didLoginTapped))
         createTableView()
+//        viewModel.loadJsonData { items in
+//            self.tasksArray = items
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
+    }
+    @objc private func didLoginTapped() {
+        viewModel.login {
+            self.viewModel.loadJsonData { items in
+                self.tasksArray = items
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     private func createTableView() {
         
@@ -35,21 +55,23 @@ class HomeViewController: UIViewController {
         
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
     }
-
+   
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return tasksArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {
             return UITableViewCell()
         }
+        cell.updateCell(with: tasksArray[indexPath.row])
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 200
     }
 }
