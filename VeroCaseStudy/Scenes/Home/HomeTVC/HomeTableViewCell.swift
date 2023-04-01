@@ -45,13 +45,19 @@ class HomeTableViewCell: UITableViewCell {
         
     }
     func updateCell(with model: Items) {
-        taskLabel.text = "Task: \(model.task)"
-        titleLabel.text = "Title: \(model.title)"
-        descriptionLabel.text = "Description: \(model.description)"
+       
+        taskLabel.attributedText = makeBoldString(string: "Task: \(model.task)", length: 5)
+        titleLabel.attributedText = makeBoldString(string: "Title: \(model.title)", length: 6)
+        descriptionLabel.attributedText = makeBoldString(string: "Description: \(model.description)", length: 12)
                     
         contentView.backgroundColor = colorFromHex(hex: model.colorCode)
         
 
+    }
+    private func makeBoldString(string: String, length: Int) -> NSMutableAttributedString {
+        let tasksString = NSMutableAttributedString(string: string)
+        tasksString.addAttribute(.font, value: UIFont.systemFont(ofSize: 18, weight: .bold), range: NSRange(location: 0, length: length))
+        return tasksString
     }
     private func colorFromHex(hex: String) -> UIColor {
         let colorCode = hex.replacingOccurrences(of: "#", with: "")
