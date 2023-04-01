@@ -22,6 +22,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        title = "BauBuddy"
         createTableView()
         search()
         loginButton()
@@ -36,6 +37,7 @@ class HomeViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openQRScanner))
         qrCodeImageView.addGestureRecognizer(tapGesture)
         qrCodeImageView.isUserInteractionEnabled = true
+        qrCodeImageView.alpha = 0.8
         qrCodeImageView.layer.cornerRadius = 20
         qrCodeImageView.clipsToBounds = true
         qrCodeImageView.sizeToFit()
@@ -130,6 +132,7 @@ extension HomeViewController: UISearchBarDelegate {
         searchBar.delegate = self
         searchBar.showsScopeBar = true
         searchBar.tintColor = UIColor.lightGray
+        searchBar.placeholder = "Search"
         searchBar.scopeButtonTitles = ["Task", "Title", "Description"]
         searchBar.isHidden = true
         self.tableView.tableHeaderView = searchBar

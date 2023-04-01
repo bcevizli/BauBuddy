@@ -20,7 +20,7 @@ class HomeViewModel {
             
         }
         catch {
-            print("error")
+            print(error.localizedDescription)
         }
         
         AF.request(taskUrlRequest, interceptor: BaseRequestInterceptor()).response { response in
@@ -66,7 +66,7 @@ class HomeViewModel {
             }
         }
         catch {
-            print("error")
+            print(error.localizedDescription)
         }
     }
 }
