@@ -23,6 +23,7 @@
 		EA29901329D7276C00ED5A6C /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA29901229D7276C00ED5A6C /* Auth.swift */; };
 		EA29901529D72BA300ED5A6C /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA29901429D72BA300ED5A6C /* Encodable.swift */; };
 		EA29901729D72BE200ED5A6C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA29901629D72BE200ED5A6C /* User.swift */; };
+		EA373EE929D78CDD00D8AE65 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA373EE829D78CDD00D8AE65 /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		EA29901229D7276C00ED5A6C /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		EA29901429D72BA300ED5A6C /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		EA29901629D72BE200ED5A6C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		EA373EE829D78CDD00D8AE65 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			children = (
 				EA14387729D6D697004FDED1 /* UIView.swift */,
 				EA29901429D72BA300ED5A6C /* Encodable.swift */,
+				EA373EE829D78CDD00D8AE65 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA29901729D72BE200ED5A6C /* User.swift in Sources */,
+				EA373EE929D78CDD00D8AE65 /* UIColor.swift in Sources */,
 				EA14387829D6D697004FDED1 /* UIView.swift in Sources */,
 				EA29900F29D7158500ED5A6C /* HomeViewModel.swift in Sources */,
 				EA14386A29D5E932004FDED1 /* Items.swift in Sources */,

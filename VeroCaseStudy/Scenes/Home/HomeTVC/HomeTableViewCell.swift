@@ -13,6 +13,8 @@ class HomeTableViewCell: UITableViewCell {
     private let taskLabel = UILabel()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
+    private var colorCode: String = ""
+   
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,12 +36,33 @@ class HomeTableViewCell: UITableViewCell {
         contentView.addSubview(descriptionLabel)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: contentView.leftAnchor, bottom: nil, right: nil, padding: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0), size: CGSize(width: self.contentView.frame.width - 20, height: 50))
+        
+       
     }
     func updateCell(with model: Items) {
         taskLabel.text = model.task
         titleLabel.text = model.title
         descriptionLabel.text = model.description
-//        contentView.backgroundColor = 
+        colorCode = model.colorCode  // assign the color code from the model to the colorCode property
+                    print(colorCode)
+                    // Convert the color code to a UIColor and set the background color of the cell
+                    let convertedColor = UInt64(colorCode, radix: 16) ?? 0
+                    let red = CGFloat((convertedColor & 0xFF0000) >> 16) / 255.0
+                    let green = CGFloat((convertedColor & 0x00FF00) >> 8) / 255.0
+                    let blue = CGFloat(convertedColor & 0x0000FF) / 255.0
+                    let backColor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+        contentView.backgroundColor = backColor
+        
+//        colorCode = model.colorCode  // assign the color code from the model to the colorCode property
+//            print(colorCode)
+//            // Convert the color code to a UIColor and set the background color of the cell
+//            let convertedColor = UInt64(colorCode, radix: 16) ?? 0
+//            let red = CGFloat((convertedColor & 0xFF0000) >> 16) / 255.0
+//            let green = CGFloat((convertedColor & 0x00FF00) >> 8) / 255.0
+//            let blue = CGFloat(convertedColor & 0x0000FF) / 255.0
+//            let backColor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+//        self.backgroundColor = backColor
+//        self.contentView.backgroundColor = backColor
     }
     
 }

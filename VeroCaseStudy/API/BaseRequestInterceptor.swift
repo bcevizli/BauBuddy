@@ -8,7 +8,7 @@
 import Alamofire
 import Foundation
 
-var token = "375f3e2ba3416067528a7a3dff4a4852a6ac3ddb"
+var token = "400d79c9dee7a81fe83d899d995a869584e531f4"
 
 class BaseRequestInterceptor: RequestInterceptor {
     

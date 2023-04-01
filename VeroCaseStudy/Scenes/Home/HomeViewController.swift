@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 class HomeViewController: UIViewController {
-
+    
     let tableView = UITableView()
     
     var tasksArray = [Items]()
@@ -21,12 +21,13 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(didLoginTapped))
         createTableView()
-//        viewModel.loadJsonData { items in
-//            self.tasksArray = items
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }
+        searchBar()
+        //        viewModel.loadJsonData { items in
+        //            self.tasksArray = items
+        //            DispatchQueue.main.async {
+        //                self.tableView.reloadData()
+        //            }
+        //        }
     }
     @objc private func didLoginTapped() {
         viewModel.login {
@@ -55,7 +56,7 @@ class HomeViewController: UIViewController {
         
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
     }
-   
+    
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -73,5 +74,40 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
+    }
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    func searchBar() {
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+        searchBar.delegate = self
+        searchBar.showsScopeBar = true
+        searchBar.tintColor = UIColor.lightGray
+        searchBar.scopeButtonTitles = ["Task", "Title", "Description"]
+        self.tableView.tableHeaderView = searchBar
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            didLoginTapped()
+        }
+        else if searchBar.selectedScopeButtonIndex == 0 {
+            tasksArray = tasksArray.filter({ items in
+                return   items.task.lowercased().contains(searchText.lowercased())
+            })
+        }
+        
+        else if searchBar.selectedScopeButtonIndex == 1 {
+            
+            tasksArray = tasksArray.filter({ items in
+                return items.title.lowercased().contains(searchText.lowercased())
+            })
+        }
+        else {
+            tasksArray = tasksArray.filter({ items in
+                items.description.lowercased().contains(searchText.lowercased())
+            })
+        }
+        
+        self.tableView.reloadData()
     }
 }
