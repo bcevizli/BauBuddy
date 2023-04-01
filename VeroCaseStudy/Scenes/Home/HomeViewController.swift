@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     let tableView = UITableView()
     var tasksArray = [Items]()
     var viewModel: HomeViewModel!
+    var searchBar: UISearchBar!
     var button: UIButton!
     let qrCodeImageView = UIImageView(image: UIImage(named: "qrLogo"))
     var refreshControl: UIRefreshControl!
@@ -22,7 +23,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         createTableView()
-        searchBar()
+        search()
         loginButton()
         qrScan()
     }
@@ -80,6 +81,7 @@ class HomeViewController: UIViewController {
         }
         button.removeFromSuperview()
         qrCodeImageView.isHidden = false
+        searchBar.isHidden = false
     }
     private func createTableView() {
         
@@ -123,12 +125,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeViewController: UISearchBarDelegate {
-    func searchBar() {
-        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+    func search() {
+        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
         searchBar.delegate = self
         searchBar.showsScopeBar = true
         searchBar.tintColor = UIColor.lightGray
         searchBar.scopeButtonTitles = ["Task", "Title", "Description"]
+        searchBar.isHidden = true
         self.tableView.tableHeaderView = searchBar
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
