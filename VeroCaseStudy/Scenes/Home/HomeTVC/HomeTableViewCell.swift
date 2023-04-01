@@ -15,9 +15,15 @@ class HomeTableViewCell: UITableViewCell {
     private let descriptionLabel = UILabel()
     private var colorCode: String = ""
    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0))
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.layer.cornerRadius = 6
         createCell()
     
     }
@@ -37,32 +43,22 @@ class HomeTableViewCell: UITableViewCell {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: contentView.leftAnchor, bottom: nil, right: nil, padding: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0), size: CGSize(width: self.contentView.frame.width - 20, height: 50))
         
-       
     }
     func updateCell(with model: Items) {
-        taskLabel.text = model.task
-        titleLabel.text = model.title
-        descriptionLabel.text = model.description
-        colorCode = model.colorCode  // assign the color code from the model to the colorCode property
-                    print(colorCode)
-                    // Convert the color code to a UIColor and set the background color of the cell
-                    let convertedColor = UInt64(colorCode, radix: 16) ?? 0
-                    let red = CGFloat((convertedColor & 0xFF0000) >> 16) / 255.0
-                    let green = CGFloat((convertedColor & 0x00FF00) >> 8) / 255.0
-                    let blue = CGFloat(convertedColor & 0x0000FF) / 255.0
-                    let backColor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-        contentView.backgroundColor = backColor
+        taskLabel.text = "Task: \(model.task)"
+        titleLabel.text = "Title: \(model.title)"
+        descriptionLabel.text = "Description: \(model.description)"
+                    
+        contentView.backgroundColor = colorFromHex(hex: model.colorCode)
         
-//        colorCode = model.colorCode  // assign the color code from the model to the colorCode property
-//            print(colorCode)
-//            // Convert the color code to a UIColor and set the background color of the cell
-//            let convertedColor = UInt64(colorCode, radix: 16) ?? 0
-//            let red = CGFloat((convertedColor & 0xFF0000) >> 16) / 255.0
-//            let green = CGFloat((convertedColor & 0x00FF00) >> 8) / 255.0
-//            let blue = CGFloat(convertedColor & 0x0000FF) / 255.0
-//            let backColor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-//        self.backgroundColor = backColor
-//        self.contentView.backgroundColor = backColor
+
     }
-    
+    private func colorFromHex(hex: String) -> UIColor {
+        let colorCode = hex.replacingOccurrences(of: "#", with: "")
+        let convertedColor = UInt64(colorCode, radix: 16) ?? 0
+        let red = CGFloat((convertedColor & 0xFF0000) >> 16) / 255.0
+        let green = CGFloat((convertedColor & 0x00FF00) >> 8) / 255.0
+        let blue = CGFloat(convertedColor & 0x0000FF) / 255.0
+        return UIColor(red: red, green: green, blue: blue, alpha: 0.6)
+    }
 }

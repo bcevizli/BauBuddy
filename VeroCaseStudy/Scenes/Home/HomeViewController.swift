@@ -16,18 +16,28 @@ class HomeViewController: UIViewController {
     
     var viewModel: HomeViewModel!
     
+    var button: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log in", style: .plain, target: self, action: #selector(didLoginTapped))
         createTableView()
         searchBar()
-        //        viewModel.loadJsonData { items in
-        //            self.tasksArray = items
-        //            DispatchQueue.main.async {
-        //                self.tableView.reloadData()
-        //            }
-        //        }
+        loginButton()
+    }
+    
+    private func loginButton() {
+        button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Log in", for: .normal)
+        button.backgroundColor = .lightGray
+        button.layer.cornerRadius = 8
+        button.setTitleColor(.black, for: .normal)
+        view.addSubview(button)
+        
+        button.anchorWithCenter(centerX: view.centerXAnchor, centerY: view.centerYAnchor, size: CGSize(width: 120, height: 50))
+
+        button.addTarget(self, action: #selector(didLoginTapped), for: .touchUpInside)
     }
     @objc private func didLoginTapped() {
         viewModel.login {
@@ -38,6 +48,7 @@ class HomeViewController: UIViewController {
                 }
             }
         }
+        button.removeFromSuperview()
     }
     private func createTableView() {
         
@@ -45,14 +56,10 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         
         tableView.estimatedRowHeight = 50
-        
+                
         view.addSubview(tableView)
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo:view.topAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo:view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
+        tableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, padding: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -10))
         
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
     }
