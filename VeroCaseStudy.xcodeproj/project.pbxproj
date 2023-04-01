@@ -24,6 +24,7 @@
 		EA29901529D72BA300ED5A6C /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA29901429D72BA300ED5A6C /* Encodable.swift */; };
 		EA29901729D72BE200ED5A6C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA29901629D72BE200ED5A6C /* User.swift */; };
 		EA373EE929D78CDD00D8AE65 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA373EE829D78CDD00D8AE65 /* UIColor.swift */; };
+		EA373EEE29D8978100D8AE65 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA373EED29D8978100D8AE65 /* QRScannerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		EA29901429D72BA300ED5A6C /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		EA29901629D72BE200ED5A6C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EA373EE829D78CDD00D8AE65 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		EA373EED29D8978100D8AE65 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 		EA14387029D6D230004FDED1 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				EA373EEC29D8976800D8AE65 /* Scanner */,
 				EA14387129D6D23A004FDED1 /* Home */,
 			);
 			path = Scenes;
@@ -167,6 +170,14 @@
 				EA373EE829D78CDD00D8AE65 /* UIColor.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EA373EEC29D8976800D8AE65 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				EA373EED29D8978100D8AE65 /* QRScannerViewController.swift */,
+			);
+			path = Scanner;
 			sourceTree = "<group>";
 		};
 		F3BDD2B946A40634A150D576 /* Frameworks */ = {
@@ -294,6 +305,7 @@
 				EA29901729D72BE200ED5A6C /* User.swift in Sources */,
 				EA373EE929D78CDD00D8AE65 /* UIColor.swift in Sources */,
 				EA14387829D6D697004FDED1 /* UIView.swift in Sources */,
+				EA373EEE29D8978100D8AE65 /* QRScannerViewController.swift in Sources */,
 				EA29900F29D7158500ED5A6C /* HomeViewModel.swift in Sources */,
 				EA14386A29D5E932004FDED1 /* Items.swift in Sources */,
 				EA14386F29D5E9BD004FDED1 /* Request.swift in Sources */,
@@ -446,6 +458,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VeroCaseStudy/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "\"BauBuddy\" would like to access to camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -474,6 +487,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VeroCaseStudy/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "\"BauBuddy\" would like to access to camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
