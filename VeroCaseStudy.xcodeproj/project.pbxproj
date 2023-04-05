@@ -23,6 +23,8 @@
 		EA29901729D72BE200ED5A6C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA29901629D72BE200ED5A6C /* User.swift */; };
 		EA373EE929D78CDD00D8AE65 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA373EE829D78CDD00D8AE65 /* UIColor.swift */; };
 		EA373EEE29D8978100D8AE65 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA373EED29D8978100D8AE65 /* QRScannerViewController.swift */; };
+		EA664FD629DDF42C00A6F93C /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA664FD529DDF42C00A6F93C /* RealmManager.swift */; };
+		EA664FD829DE0D5800A6F93C /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA664FD729DE0D5800A6F93C /* UIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		EA29901629D72BE200ED5A6C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EA373EE829D78CDD00D8AE65 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		EA373EED29D8978100D8AE65 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		EA664FD529DDF42C00A6F93C /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		EA664FD729DE0D5800A6F93C /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,25 +94,24 @@
 		EA14385229D5E8D3004FDED1 /* VeroCaseStudy */ = {
 			isa = PBXGroup;
 			children = (
-				EA14387629D6D667004FDED1 /* Extensions */,
-				EA14386729D5E8EA004FDED1 /* Resources */,
+				EA664FD429DDF40300A6F93C /* Base */,
 				EA14386B29D5E9A7004FDED1 /* API */,
 				EA14386829D5E8FE004FDED1 /* Model */,
 				EA14387029D6D230004FDED1 /* Scenes */,
+				EA14387629D6D667004FDED1 /* Extensions */,
+				EA14386729D5E8EA004FDED1 /* Utilities */,
 				EA14386129D5E8D4004FDED1 /* Info.plist */,
 			);
 			path = VeroCaseStudy;
 			sourceTree = "<group>";
 		};
-		EA14386729D5E8EA004FDED1 /* Resources */ = {
+		EA14386729D5E8EA004FDED1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				EA14385329D5E8D3004FDED1 /* AppDelegate.swift */,
-				EA14385529D5E8D3004FDED1 /* SceneDelegate.swift */,
 				EA14385C29D5E8D4004FDED1 /* Assets.xcassets */,
 				EA14385E29D5E8D4004FDED1 /* LaunchScreen.storyboard */,
 			);
-			path = Resources;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		EA14386829D5E8FE004FDED1 /* Model */ = {
@@ -162,6 +165,7 @@
 				EA14387729D6D697004FDED1 /* UIView.swift */,
 				EA29901429D72BA300ED5A6C /* Encodable.swift */,
 				EA373EE829D78CDD00D8AE65 /* UIColor.swift */,
+				EA664FD729DE0D5800A6F93C /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -172,6 +176,16 @@
 				EA373EED29D8978100D8AE65 /* QRScannerViewController.swift */,
 			);
 			path = Scanner;
+			sourceTree = "<group>";
+		};
+		EA664FD429DDF40300A6F93C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				EA14385329D5E8D3004FDED1 /* AppDelegate.swift */,
+				EA14385529D5E8D3004FDED1 /* SceneDelegate.swift */,
+				EA664FD529DDF42C00A6F93C /* RealmManager.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		F3BDD2B946A40634A150D576 /* Frameworks */ = {
@@ -301,6 +315,7 @@
 				EA14387829D6D697004FDED1 /* UIView.swift in Sources */,
 				EA373EEE29D8978100D8AE65 /* QRScannerViewController.swift in Sources */,
 				EA29900F29D7158500ED5A6C /* HomeViewModel.swift in Sources */,
+				EA664FD629DDF42C00A6F93C /* RealmManager.swift in Sources */,
 				EA14386A29D5E932004FDED1 /* Items.swift in Sources */,
 				EA29901129D71DB300ED5A6C /* BaseRequestInterceptor.swift in Sources */,
 				EA14387529D6D291004FDED1 /* HomeTableViewCell.swift in Sources */,
@@ -309,6 +324,7 @@
 				EA14385829D5E8D3004FDED1 /* HomeViewController.swift in Sources */,
 				EA14385429D5E8D3004FDED1 /* AppDelegate.swift in Sources */,
 				EA14385629D5E8D3004FDED1 /* SceneDelegate.swift in Sources */,
+				EA664FD829DE0D5800A6F93C /* UIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +464,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N3UW986926;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VeroCaseStudy/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"BauBuddy\" would like to access to camera";
@@ -477,6 +494,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N3UW986926;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VeroCaseStudy/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "\"BauBuddy\" would like to access to camera";

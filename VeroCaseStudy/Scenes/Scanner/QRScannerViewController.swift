@@ -14,17 +14,18 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     private var captureSession: AVCaptureSession?
     private var capturePreviewLayer: AVCaptureVideoPreviewLayer?
     private var qrCodeFrameView: UIView?
+    
+    private var qrString: String = "" {
+        didSet {
+            showToast(message: qrString, font: UIFont.systemFont(ofSize: 16))
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Setup capture session
         setupCaptureSession()
-
-        // Add capture preview layer
         setupPreviewLayer()
-
-        // Add bounding box view for detected QR code
         setupQRCodeFrameView()
     }
 
@@ -99,6 +100,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
             // Do something with the scanned string value
             print("Scanned QR code with value: \(stringValue)")
+        self.qrString = stringValue
         }
 
 }

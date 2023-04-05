@@ -48,7 +48,7 @@ class HomeTableViewCell: UITableViewCell {
        
         taskLabel.attributedText = makeBoldString(string: "Task: \(model.task)", length: 5)
         titleLabel.attributedText = makeBoldString(string: "Title: \(model.title)", length: 6)
-        descriptionLabel.attributedText = makeBoldString(string: "Description: \(model.description)", length: 12)
+        descriptionLabel.attributedText = makeBoldString(string: "Description: \(model.desc)", length: 12)
                     
         contentView.backgroundColor = colorFromHex(hex: model.colorCode)
         

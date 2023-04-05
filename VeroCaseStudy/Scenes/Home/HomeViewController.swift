@@ -14,22 +14,20 @@ class HomeViewController: UIViewController {
     let tableView = UITableView()
     var tasksArray = [Items]()
     var viewModel: HomeViewModel!
-    var searchBar: UISearchBar!
+    var searchBar = UISearchBar()
     var button: UIButton!
-    let qrCodeImageView = UIImageView(image: UIImage(named: "qrLogo"))
+    let qrCodeImageView = UIImageView()
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
         title = "BauBuddy"
-        createTableView()
-        search()
         loginButton()
-        qrScan()
     }
     
-    private func qrScan() {
+    private func configureQrScanUI() {
         // Add the QR code image view to the view
         view.addSubview(qrCodeImageView)
         
@@ -38,25 +36,18 @@ class HomeViewController: UIViewController {
         qrCodeImageView.addGestureRecognizer(tapGesture)
         qrCodeImageView.isUserInteractionEnabled = true
         qrCodeImageView.alpha = 0.8
-        qrCodeImageView.layer.cornerRadius = 20
+        qrCodeImageView.layer.cornerRadius = 15
         qrCodeImageView.clipsToBounds = true
         qrCodeImageView.sizeToFit()
-        qrCodeImageView.isHidden = true
+        qrCodeImageView.image = UIImage(named: "qrLogo")
         
         // Position the QR code image view in the bottom right corner of the view
-        qrCodeImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            qrCodeImageView.widthAnchor.constraint(equalToConstant: 74),
-            qrCodeImageView.heightAnchor.constraint(equalToConstant: 74),
-            qrCodeImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26),
-            qrCodeImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -26)
-        ])
+        qrCodeImageView.anchor(top: nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, padding: UIEdgeInsets(top: 0, left: 0, bottom: -26, right: -26), size: CGSize(width: 74, height: 74))
     }
     @objc func openQRScanner() {
         let qrScannerVC = QRScannerViewController()
         qrScannerVC.modalPresentationStyle = .fullScreen
-        present(qrScannerVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(qrScannerVC, animated: true)
     }
     
     private func loginButton() {
@@ -70,21 +61,39 @@ class HomeViewController: UIViewController {
         
         button.anchorWithCenter(centerX: view.centerXAnchor, centerY: view.centerYAnchor, size: CGSize(width: 120, height: 50))
         
-        button.addTarget(self, action: #selector(didLoginTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
     }
-    @objc private func didLoginTapped() {
+    @objc private func didTapLogin() {
+        button.removeFromSuperview()
+        configureSearchBarUI()
+        createTableView()
+        configureQrScanUI()
         viewModel.login {
             self.viewModel.loadJsonData { items in
-                self.tasksArray = items
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                if let itemObjects = RealmManager().fetch() {
+                    if itemObjects.count == items.count {
+                        self.tasksArray = itemObjects
+                    } else {
+                        items.forEach { item in
+                            RealmManager().save(on: item)
+                        }
+                        self.tasksArray = items
+                    }
                 }
             }
         }
-        button.removeFromSuperview()
-        qrCodeImageView.isHidden = false
-        searchBar.isHidden = false
+        
+        if self.tasksArray.isEmpty {
+            if let itemObjects = RealmManager().fetch() {
+                self.tasksArray = itemObjects
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
+    
     private func createTableView() {
         
         tableView.delegate = self
@@ -93,7 +102,7 @@ class HomeViewController: UIViewController {
         tableView.estimatedRowHeight = 50
         view.addSubview(tableView)
         
-        tableView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, padding: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -10))
+        tableView.anchor(top: searchBar.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, padding: UIEdgeInsets(top: 2, left: 10, bottom: 0, right: -10))
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         
         refreshControl = UIRefreshControl()
@@ -101,11 +110,15 @@ class HomeViewController: UIViewController {
         tableView.addSubview(refreshControl)
     }
     @objc func refreshData() {
-           
-           // Reload the table view and end refreshing
-           tableView.reloadData()
-           refreshControl.endRefreshing()
-       }
+        // Reload the table view and end refreshing
+        self.viewModel.loadJsonData { items in
+            self.tasksArray = items
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        refreshControl.endRefreshing()
+    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -127,19 +140,18 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeViewController: UISearchBarDelegate {
-    func search() {
-        searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
+    func configureSearchBarUI() {
+        view.addSubview(searchBar)
+        searchBar.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, size: CGSize(width: 0, height: 100))
         searchBar.delegate = self
         searchBar.showsScopeBar = true
         searchBar.tintColor = UIColor.lightGray
         searchBar.placeholder = "Search"
         searchBar.scopeButtonTitles = ["Task", "Title", "Description"]
-        searchBar.isHidden = true
-        self.tableView.tableHeaderView = searchBar
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            didLoginTapped()
+            didTapLogin()
         }
         else if searchBar.selectedScopeButtonIndex == 0 {
             tasksArray = tasksArray.filter({ items in

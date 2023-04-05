@@ -6,11 +6,18 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Items: Decodable {
+@objcMembers
+class Items: Object, Decodable {
     
-    let task: String
-    let title: String
-    let description: String
-    let colorCode: String
+    dynamic var task: String
+    dynamic var title: String
+    dynamic var desc: String
+    dynamic var colorCode: String
+    
+    enum CodingKeys: String, CodingKey {
+        case task, title, colorCode
+        case desc = "description"
+    }
 }
